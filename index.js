@@ -14,7 +14,7 @@ const port = config.port
 
 app.use(bodyParser());
 app.use(cors({
-  origin: ['http://www.brevetech.com', 'http://localhost:4217', 'http://127.0.0.1:8080'],
+  origin: ['http://www.brevetech.com', 'http://localhost:4217', 'http://127.0.0.1:8080', 'http://www.wedofuels.com', 'http://www.wedofuels.net'],
   credentials: true
 }))
 app.use(session({
@@ -27,6 +27,12 @@ app.get('/api/', (req, res, next) => {
   db.getAll([], (err, inq) => {
     if (err) {return next(err)}
     return res.status(200).json(inq)
+  })
+})
+app.post('/gfg/', (req,res,next) => {
+  db.createMessage([req.body.name, req.body.email, req.body.details, req.body.date], (err, data) => {
+    if (err) {return next(err)}
+    return res.status(200).json(data)
   })
 })
 
